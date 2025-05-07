@@ -24,10 +24,8 @@ jobs:
       - name: Create Databricks Job
         id: create_job
         run: |
-          databricks jobs create --json "$(cat setup/onboarding_job.json)"
+          JOB_ID=$(databricks jobs create --json "$(cat setup/onboarding_job.json)" | jq -r '.job_id')
 
-      # - name: Use Job ID
-      #   run: |
-      #     echo "Created job ID: ${{ steps.create_job.outputs.job_id }}"
-      #     echo "Running job..."
-      #     databricks jobs run-now --job-id ${{ steps.create_job.outputs.job_id }}
+      - name: Use Job ID
+        run: |
+          echo "Created job ID: ${{ steps.create_job.outputs.job_id }}"
