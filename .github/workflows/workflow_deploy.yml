@@ -24,8 +24,8 @@ jobs:
       - name: Create Databricks Job
         id: create_job
         run: |
-          JOB_OUTPUT=$(databricks jobs create --json "$(cat setup/onboarding_job.json)")
-          echo "$JOB_OUTPUT"
+          databricks jobs create --json "$(cat setup/onboarding_job.json)
+          # echo "$JOB_OUTPUT"
           # JOB_ID=$(echo "$JOB_OUTPUT" | jq -r '.job_id')
           # echo "job_id=$JOB_ID" >> "$GITHUB_OUTPUT"
 
