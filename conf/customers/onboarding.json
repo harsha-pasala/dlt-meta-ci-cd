@@ -8,7 +8,7 @@
       "source_database": "customers",
       "source_table": "customers",
       "source_path_prod": "/Volumes/harsha_pasala/default/data/customers/",
-      "source_schema_path": "/Volumes/harsha_pasala/default/conf/ddl/customers.ddl"
+      "source_schema_path": "/Volumes/harsha_pasala/default/data/conf/ddl/customers.ddl"
     },
     "bronze_database_prod": "harsha_pasala.bronze",
     "bronze_table": "customers",
