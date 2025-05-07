@@ -18,8 +18,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Set up Databricks CLI
-        run: |
-          pip install databricks-cli jq
+        uses: databricks/setup-cli@main
 
       - name: Copy DLT Meta Config files
         run: |
