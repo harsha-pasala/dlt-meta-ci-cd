@@ -25,7 +25,9 @@ jobs:
         run: |
           databricks -v
           pwd
-          databricks fs cp -r conf/ dbfs:/Volumes/harsha_pasala/default/data/conf/
+          echo "Contents of conf/:"
+          ls -la conf/ || echo "conf/ directory not found"
+          databricks fs cp -r conf/ dbfs:/Volumes/harsha_pasala/default/data/conf/ > /dev/null
 
       - name: Create Databricks Job
         id: create_job
