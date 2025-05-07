@@ -21,6 +21,10 @@ jobs:
         run: |
           pip install databricks-cli jq
 
+      - name: Copy DLT Meta Config files
+        run: |
+          sh setup/requirements.sh
+
       - name: Create Databricks Job
         id: create_job
         run: |
