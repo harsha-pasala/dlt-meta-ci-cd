@@ -1,0 +1,57 @@
+{
+  "name": "dlt-meta-onboarding",
+  "email_notifications": {
+    "no_alert_for_skipped_runs": false
+  },
+  "webhook_notifications": {},
+  "timeout_seconds": 0,
+  "max_concurrent_runs": 1,
+  "tasks": [
+    {
+      "task_key": "onboarding_task",
+      "run_if": "ALL_SUCCESS",
+      "python_wheel_task": {
+        "package_name": "dlt_meta",
+        "entry_point": "run",
+        "named_parameters": {
+          "database": "harsha_pasala.default",
+          "onboarding_file_path": "/Volumes/harsha_pasala/default/conf/onboarding.json",
+          "silver_dataflowspec_table": "silver_dataflowspec_table",
+          "bronze_dataflowspec_table": "bronze_dataflowspec_table",
+          "uc_enabled": "True",
+          "import_author": "Harsha",
+          "version": "v1",
+          "onboard_layer": "bronze_silver",
+          "overwrite": "True",
+          "env": "prod"
+        }
+      },
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "environment_key": "dlt_meta"
+    }
+  ],
+  "queue": {
+    "enabled": true
+  },
+  "environments": [
+    {
+      "environment_key": "Default",
+      "spec": {
+        "client": "2"
+      }
+    },
+    {
+      "environment_key": "dlt_meta",
+      "spec": {
+        "client": "2",
+        "dependencies": ["dlt-meta"]
+      }
+    }
+  ],
+  "performance_target": "PERFORMANCE_OPTIMIZED",
+  "run_as": {
+    "user_name": "harsha.pasala@databricks.com"
+  }
+}

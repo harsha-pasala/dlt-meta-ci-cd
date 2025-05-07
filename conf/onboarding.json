@@ -1,0 +1,33 @@
+[
+  {
+    "data_flow_id": "100",
+    "data_flow_group": "A1",
+    "source_system": "mysql",
+    "source_format": "cloudFiles",
+    "source_details": {
+      "source_database": "customers",
+      "source_table": "customers",
+      "source_path_prod": "/Volumes/harsha_pasala/default/data/customers/",
+      "source_schema_path": "/Volumes/harsha_pasala/default/conf/ddl/customers.ddl"
+    },
+    "bronze_database_prod": "harsha_pasala.bronze",
+    "bronze_table": "customers",
+    "bronze_reader_options": {
+      "cloudFiles.format": "csv",
+      "cloudFiles.rescuedDataColumn": "_rescued_data",
+      "header": "true"
+    },
+    "bronze_cluster_by": ["customer_id"],
+    "silver_database_prod": "harsha_pasala.silver",
+    "silver_table": "customers",
+    "silver_cdc_apply_changes": {
+      "keys": ["customer_id"],
+      "sequence_by": "dmsTimestamp",
+      "scd_type": "2",
+      "apply_as_deletes": "Op = 'D'",
+      "except_column_list": ["Op", "dmsTimestamp", "_rescued_data"]
+    },
+    "silver_cluster_by": ["customer_id"],
+    "silver_transformation_json_prod": "{uc_volume_path}/demo/conf/silver_transformations.json"
+  }
+]

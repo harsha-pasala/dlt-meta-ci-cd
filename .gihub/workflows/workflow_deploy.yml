@@ -1,0 +1,39 @@
+name: Deploy Databricks Job
+
+on:
+  push:
+    branches:
+      - develop
+
+concurrency:
+  group: deploy-databricks-job
+  cancel-in-progress: true
+
+env:
+  DATABRICKS_TOKEN: ${{ secrets.E2_SP_TOKEN }}
+  DATABRICKS_HOST: https://<your-workspace>.cloud.databricks.com # replace with actual host
+
+jobs:
+  deploy-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Databricks CLI
+        run: |
+          pip install databricks-cli jq
+          mkdir -p ~/.databricks
+          echo -e "[e2-demo]\nhost = $DATABRICKS_HOST\ntoken = $DATABRICKS_TOKEN" > ~/.databricks/config
+
+      - name: Create Databricks Job
+        id: create_job
+        run: |
+          JOB_ID=$(databricks jobs create --profile e2-demo --json "$(jq -c . setup/onboarding_job.json)" | jq -r '.job_id')
+          echo "job_id=$JOB_ID" >> "$GITHUB_OUTPUT"
+
+      - name: Use Job ID
+        run: |
+          echo "Created job ID: ${{ steps.create_job.outputs.job_id }}"
+          databricks jobs get --profile e2-demo --job-id ${{ steps.create_job.outputs.job_id }}
