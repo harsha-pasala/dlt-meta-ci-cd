@@ -23,6 +23,7 @@ jobs:
 
       - name: Copy DLT Meta Config files
         run: |
+          databricks -v
           pwd
           databricks fs cp -r conf/ dbfs:/Volumes/harsha_pasala/default/data/conf/
 
