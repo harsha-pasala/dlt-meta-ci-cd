@@ -7,7 +7,7 @@ on:
 
 env:
   DATABRICKS_TOKEN: ${{secrets.ONE_ENV_TOKEN}}
-  DATABRICKS_HOST: https://dbc-e0d9a449-b7e7.cloud.databricks.com/
+  DATABRICKS_HOST: https://dbc-e0d9a449-b7e7.cloud.databricks.com
 
 jobs:
   deploy-job:
@@ -21,14 +21,14 @@ jobs:
         run: |
           pip install databricks-cli jq
 
-      - name: Copy DLT Meta Config files
-        run: |
-          databricks -v
-          pwd
-          echo "Contents of conf/:"
-          ls -la conf/ || echo "conf/ directory not found"
-          databricks fs ls dbfs:/Volumes/harsha_pasala/default/data/
-          databricks fs cp -r conf/ dbfs:/Volumes/harsha_pasala/default/data/conf/ > /dev/null
+      # - name: Copy DLT Meta Config files
+      #   run: |
+      #     databricks -v
+      #     pwd
+      #     echo "Contents of conf/:"
+      #     ls -la conf/ || echo "conf/ directory not found"
+      #     databricks fs ls dbfs:/Volumes/harsha_pasala/default/data/
+      #     databricks fs cp -r conf/ dbfs:/Volumes/harsha_pasala/default/data/conf/ > /dev/null
 
       - name: Create Databricks Job
         id: create_job
