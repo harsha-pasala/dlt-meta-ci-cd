@@ -26,9 +26,9 @@ jobs:
         run: |
           JOB_OUTPUT=$(databricks jobs create --json "$(cat setup/onboarding_job.json)")
           echo "$JOB_OUTPUT"
-          JOB_ID=$(echo "$JOB_OUTPUT" | jq -r '.job_id')
-          echo "job_id=$JOB_ID" >> "$GITHUB_OUTPUT"
+          # JOB_ID=$(echo "$JOB_OUTPUT" | jq -r '.job_id')
+          # echo "job_id=$JOB_ID" >> "$GITHUB_OUTPUT"
 
-      - name: Use Job ID
-        run: |
-          echo "Created job ID: ${{ steps.create_job.outputs.job_id }}"
+      # - name: Use Job ID
+      #   run: |
+      #     echo "Created job ID: ${{ steps.create_job.outputs.job_id }}"
