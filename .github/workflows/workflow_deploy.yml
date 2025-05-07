@@ -21,23 +21,23 @@ jobs:
         run: |
           pip install databricks-cli jq
 
-      # - name: Copy DLT Meta Config files
+      - name: Copy DLT Meta Config files
+        run: |
+          databricks -v
+          pwd
+          echo "Contents of conf/:"
+          ls -la conf/ || echo "conf/ directory not found"
+          databricks fs ls dbfs:/Volumes/harsha_pasala/default/data/
+          # databricks fs cp -r conf/ dbfs:/Volumes/harsha_pasala/default/data/conf/ > /dev/null
+
+      # - name: Create Databricks Job
+      #   id: create_job
       #   run: |
-      #     databricks -v
-      #     pwd
-      #     echo "Contents of conf/:"
-      #     ls -la conf/ || echo "conf/ directory not found"
-      #     databricks fs ls dbfs:/Volumes/harsha_pasala/default/data/
-      #     databricks fs cp -r conf/ dbfs:/Volumes/harsha_pasala/default/data/conf/ > /dev/null
+      #     JOB_OUTPUT=$(databricks jobs create --json "$(cat setup/onboarding_job.json)")
+      #     echo "$JOB_OUTPUT"
+      #     JOB_ID=$(echo "$JOB_OUTPUT" | jq -r '.job_id')
+      #     echo "job_id=$JOB_ID" >> "$GITHUB_OUTPUT"
 
-      - name: Create Databricks Job
-        id: create_job
-        run: |
-          JOB_OUTPUT=$(databricks jobs create --json "$(cat setup/onboarding_job.json)")
-          echo "$JOB_OUTPUT"
-          JOB_ID=$(echo "$JOB_OUTPUT" | jq -r '.job_id')
-          echo "job_id=$JOB_ID" >> "$GITHUB_OUTPUT"
-
-      - name: Use Job ID
-        run: |
-          echo "Created job ID: ${{ steps.create_job.outputs.job_id }}"
+      # - name: Use Job ID
+      #   run: |
+      #     echo "Created job ID: ${{ steps.create_job.outputs.job_id }}"
