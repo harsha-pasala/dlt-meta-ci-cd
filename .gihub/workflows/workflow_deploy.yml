@@ -5,10 +5,6 @@ on:
     branches:
       - develop
 
-concurrency:
-  group: deploy-databricks-job
-  cancel-in-progress: true
-
 env:
   DATABRICKS_TOKEN: ${{ secrets.E2_SP_TOKEN }}
   DATABRICKS_HOST: https://<your-workspace>.cloud.databricks.com # replace with actual host
@@ -30,10 +26,11 @@ jobs:
       - name: Create Databricks Job
         id: create_job
         run: |
-          JOB_ID=$(databricks jobs create --profile e2-demo --json "$(jq -c . setup/onboarding_job.json)" | jq -r '.job_id')
+          JOB_ID=$(databricks jobs create --json "$(jq -c . setup/onboarding_job.json)" | jq -r '.job_id')
           echo "job_id=$JOB_ID" >> "$GITHUB_OUTPUT"
 
-      - name: Use Job ID
-        run: |
-          echo "Created job ID: ${{ steps.create_job.outputs.job_id }}"
-          databricks jobs get --profile e2-demo --job-id ${{ steps.create_job.outputs.job_id }}
+      # - name: Use Job ID
+      #   run: |
+      #     echo "Created job ID: ${{ steps.create_job.outputs.job_id }}"
+      #     echo "Running job..."
+      #     databricks jobs run-now --job-id ${{ steps.create_job.outputs.job_id }}
