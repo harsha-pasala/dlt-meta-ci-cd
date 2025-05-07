@@ -15,7 +15,7 @@
         "entry_point": "run",
         "named_parameters": {
           "database": "harsha_pasala.default",
-          "onboarding_file_path": "/Volumes/harsha_pasala/default/conf/onboarding.json",
+          "onboarding_file_path": "/Volumes/harsha_pasala/default/data/conf/customers/onboarding.json",
           "silver_dataflowspec_table": "silver_dataflowspec_table",
           "bronze_dataflowspec_table": "bronze_dataflowspec_table",
           "uc_enabled": "True",
