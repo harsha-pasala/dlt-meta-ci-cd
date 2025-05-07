@@ -28,6 +28,6 @@
       "except_column_list": ["Op", "dmsTimestamp", "_rescued_data"]
     },
     "silver_cluster_by": ["customer_id"],
-    "silver_transformation_json_prod": "{uc_volume_path}/demo/conf/silver_transformations.json"
+    "silver_transformation_json_prod": "/Volumes/harsha_pasala/default/data/conf/silver_transformations.json"
   }
 ]
