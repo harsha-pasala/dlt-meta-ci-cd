@@ -6,7 +6,7 @@ on:
       - develop
 
 env:
-  DATABRICKS_TOKEN: ${{ secrets.E2_SP_TOKEN }}
+  DATABRICKS_TOKEN: ${{secrets.E2_SP_TOKEN}}
   DATABRICKS_HOST: https://e2-demo-field-eng.cloud.databricks.com
 
 jobs:
@@ -20,8 +20,6 @@ jobs:
       - name: Set up Databricks CLI
         run: |
           pip install databricks-cli jq
-          mkdir -p ~/.databricks
-          echo -e "[e2-demo]\nhost = $DATABRICKS_HOST\ntoken = $DATABRICKS_TOKEN" > ~/.databricks/config
 
       - name: Create Databricks Job
         id: create_job
