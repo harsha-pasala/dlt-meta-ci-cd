@@ -23,7 +23,7 @@ jobs:
 
       - name: Copy DLT Meta Config files
         run: |
-          sh setup/requirements.sh
+          databricks fs cp -r conf/ dbfs:/Volumes/harsha_pasala/default/data/conf/
 
       - name: Create Databricks Job
         id: create_job
