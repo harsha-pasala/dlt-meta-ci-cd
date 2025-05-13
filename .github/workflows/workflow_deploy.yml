@@ -3,7 +3,7 @@ name: Deploy Databricks Job
 on:
   push:
     branches:
-      - develop
+      - develop-dabs
 
 env:
   DATABRICKS_TOKEN: ${{secrets.ONE_ENV_TOKEN}}
@@ -27,12 +27,10 @@ jobs:
       - name: Create Databricks Job
         id: create_job
         run: |
-          JOB_OUTPUT=$(databricks jobs create --json "$(cat setup/onboarding_job.json)")
-          echo "$JOB_OUTPUT"
-          JOB_ID=$(echo "$JOB_OUTPUT" | jq -r '.job_id')
-          echo "job_id=$JOB_ID" >> "$GITHUB_OUTPUT"
+          echo "Deploying Bundle..."
+          databricks bundle deploy -t dev
 
       - name: Run Job
         run: |
-          echo "Run job ID: ${{ steps.create_job.outputs.job_id }}"
-          databricks jobs run-now ${{ steps.create_job.outputs.job_id }}
+          echo "Running Job..."
+          databricks bundle run -t dev dlt_meta_onboarding

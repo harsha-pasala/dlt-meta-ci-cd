@@ -1,0 +1,32 @@
+resources:
+  jobs:
+    dlt_meta_onboarding:
+      name: dlt-meta-onboarding
+      tasks:
+        - task_key: onboarding_task
+          python_wheel_task:
+            package_name: dlt_meta
+            entry_point: run
+            named_parameters:
+              database: harsha_pasala.default
+              onboarding_file_path: ${workspace.file_path}/conf/customers/onboarding.json
+              silver_dataflowspec_table: silver_dataflowspec_table
+              bronze_dataflowspec_table: bronze_dataflowspec_table
+              uc_enabled: "True"
+              import_author: Harsha
+              version: v1
+              onboard_layer: bronze_silver
+              overwrite: "True"
+              env: prod
+          environment_key: dlt_meta
+      queue:
+        enabled: true
+      environments:
+        - environment_key: Default
+          spec:
+            client: "2"
+        - environment_key: dlt_meta
+          spec:
+            client: "2"
+            dependencies:
+              - dlt-meta
