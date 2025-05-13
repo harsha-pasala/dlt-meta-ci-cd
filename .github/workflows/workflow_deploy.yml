@@ -24,8 +24,8 @@ jobs:
         run: |
           databricks fs cp --overwrite -r conf/ dbfs:/Volumes/harsha_pasala/default/data/conf/
 
-      - name: Create Databricks Job
-        id: create_job
+      - name: Deploy Databricks Bundle
+        id: deploy_bundle
         run: |
           echo "Deploying Bundle..."
           databricks bundle deploy -t dev
